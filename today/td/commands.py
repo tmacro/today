@@ -63,3 +63,7 @@ def prune_dirs(args, config):
         print(path)
         if not args.dry_run:
             path.rmdir()
+
+@commands.register('show')
+def show_dir(args, config):
+    print(get_dir_name(config, args.day))

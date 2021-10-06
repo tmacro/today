@@ -65,3 +65,7 @@ def prune_notes(args, config):
                         note.unlink()
                 except ValueError as e:
                     pass
+
+@commands.register('show')
+def show_note(args, config):
+    print(get_filename(config, args.day))

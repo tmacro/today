@@ -22,6 +22,10 @@ def build_parser(parser):
     create_dir_subparser = dir_subparsers.add_parser('create', help='Create an empty scratch directory.')
     create_dir_subparser.set_defaults(command=commands.get('create'))
 
+    show_dir_subparser = dir_subparsers.add_parser('show', help='Print the path of the scratch directory.')
+    show_dir_subparser.set_defaults(command=commands.get('show'))
+    show_dir_subparser.add_argument('day', nargs='?', default=TODAY, type=relative_date_type, help='Specify a date relative to today')
+
     view_dir_subparser = dir_subparsers.add_parser('view', help="View a scratch directory's contents.")
     view_dir_subparser.set_defaults(command=commands.get('view'))
     view_dir_subparser.add_argument('day', nargs='?', default=TODAY, type=relative_date_type, help='Specify a date relative to today')
