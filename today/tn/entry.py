@@ -56,6 +56,7 @@ def get_args():
         default='~/.config/today/today.conf',
         help='Specify an alternate config file')
 
+    parser.set_defaults(day=TODAY, command=commands.get('edit'))
     build_parser(parser)
 
     args = parser.parse_args()
