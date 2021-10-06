@@ -50,7 +50,6 @@ def get_args():
     build_parser(parser)
 
     args = parser.parse_args()
-    print(args)
     if not hasattr(args, 'command'):
         return parser.parse_args(['--help'])
     return args
@@ -58,5 +57,4 @@ def get_args():
 def cli():
     args = get_args()
     config = load_config(args.config)
-    print(config)
     args.command(args, config)
