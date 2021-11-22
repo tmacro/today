@@ -6,16 +6,10 @@ import pathlib
 import sys
 
 from ..config import load_config
+from ..util import path_type, date_or_relative
 from .commands import commands
 
-TODAY = datetime.date.today()
-
-def path_type(path):
-    return pathlib.Path(os.path.expanduser(path)).resolve()
-
-def relative_date_type(arg):
-    days = int(arg)
-    return TODAY + datetime.timedelta(days=days)
+from ..constant import TODAY
 
 def build_parser(parser):
     dir_subparsers = parser.add_subparsers(title='Scratch directory commands')
@@ -24,11 +18,11 @@ def build_parser(parser):
 
     show_dir_subparser = dir_subparsers.add_parser('show', help='Print the path of the scratch directory.')
     show_dir_subparser.set_defaults(command=commands.get('show'))
-    show_dir_subparser.add_argument('day', nargs='?', default=TODAY, type=relative_date_type, help='Specify a date relative to today')
+    show_dir_subparser.add_argument('day', nargs='?', default=TODAY, type=date_or_relative, help='Specify a date relative to today')
 
     view_dir_subparser = dir_subparsers.add_parser('view', help="View a scratch directory's contents.")
     view_dir_subparser.set_defaults(command=commands.get('view'))
-    view_dir_subparser.add_argument('day', nargs='?', default=TODAY, type=relative_date_type, help='Specify a date relative to today')
+    view_dir_subparser.add_argument('day', nargs='?', default=TODAY, type=date_or_relative, help='Specify a date relative to today')
 
     list_dir_subparser = dir_subparsers.add_parser('list', help='List scratch directories.')
     list_dir_subparser.set_defaults(command=commands.get('list'))
