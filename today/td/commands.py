@@ -23,12 +23,14 @@ def view_dir(args, config):
     dir_name = get_dir_name(config, args.day)
     if not dir_name.exists():
         dir_name.mkdir()
-    subprocess.run(f'{config.scratch.viewer} {dir_name}', shell=True, env=os.environ)
+    cmd = config.scratch.viewer.format(directory=dir_name)
+    subprocess.run(cmd, shell=True, env=os.environ)
 
 @commands.register('search')
 def search_dirs(args, config):
     directory = get_scratch_dir(config)
-    subprocess.run(f'{config.scratch.search} {args.expression} {directory}', shell=True, env=os.environ)
+    cmd = config.scratch.search.format(directory=directory, expression=args.expression)
+    subprocess.run(cmd, shell=True, env=os.environ)
 
 def _is_scratch_dir(config, path):
     try:
@@ -67,3 +69,9 @@ def prune_dirs(args, config):
 @commands.register('show')
 def show_dir(args, config):
     print(get_dir_name(config, args.day))
+
+@commands.register('find')
+def find_in_dirs(args, config):
+    directory = get_scratch_dir(config)
+    cmd = config.scratch.find.format(directory=directory, expression=args.expression)
+    subprocess.run(cmd, shell=True, env=os.environ)

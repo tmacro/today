@@ -41,6 +41,10 @@ def build_parser(parser):
     prune_dir_subparser.set_defaults(command=commands.get('prune'))
     prune_dir_subparser.add_argument('-d', '--dry-run', action='store_true', help='Only print filenames detected for deletion without deleting')
 
+    find_dir_subparser = dir_subparsers.add_parser('find', help='Search scratch directories by filename')
+    find_dir_subparser.set_defaults(command=commands.get('find'))
+    find_dir_subparser.add_argument('expression', help='Search dirs for a file')
+
 def get_args():
     parser = argparse.ArgumentParser(
         prog=os.path.basename(sys.argv[0]),

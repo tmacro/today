@@ -8,7 +8,7 @@ DEFAULTS = pathlib.Path(os.path.realpath(__file__)).parent.joinpath('defaults.co
 
 TodayConfig = namedtuple('today', ['datefmt', 'notes', 'scratch'])
 NotesSection = namedtuple('notes', ['ext', 'directory', 'editor', 'viewer', 'search'])
-ScratchSection = namedtuple('scratch', ['directory', 'viewer', 'search'])
+ScratchSection = namedtuple('scratch', ['directory', 'viewer', 'search', 'find'])
 
 def load_config(path):
     parser = ConfigParser(interpolation=None)
@@ -35,6 +35,7 @@ def load_config(path):
         scratch=ScratchSection(
             directory=parser.get('scratch', 'directory'),
             viewer=parser.get('scratch', 'viewer'),
-            search=parser.get('scratch', 'search')
+            search=parser.get('scratch', 'search'),
+            find=parser.get('scratch', 'find')
         )
     )
