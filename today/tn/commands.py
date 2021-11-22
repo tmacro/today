@@ -32,6 +32,9 @@ def edit_note(args, config):
 @commands.register('view')
 def view_note(args, config):
     filename = get_filename(config, args.day)
+    if not filename.exists():
+        print(f'No notes exist for {args.day.strftime(config.datefmt)}')
+        return
     subprocess.run(f'{config.notes.viewer} {filename}', shell=True, env=os.environ)
 
 @commands.register('search')
