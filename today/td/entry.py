@@ -47,6 +47,7 @@ def get_args():
 
     parser.add_argument('-c', '--config',
         default='~/.config/today/today.conf',
+        type=path_type,
         help='Specify an alternate config file')
 
     build_parser(parser)
