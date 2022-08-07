@@ -1,0 +1,4 @@
+arch = any
+pkgbase = today-dir
+	pkgver = 1.0
+	plgrel = 1
