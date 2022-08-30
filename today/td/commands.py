@@ -3,6 +3,7 @@ import os
 from datetime import datetime
 
 from ..util import get_datestamp, resolve_path, CommandRegistry
+from ..constant import TODAY
 
 commands = CommandRegistry()
 
@@ -68,7 +69,10 @@ def prune_dirs(args, config):
 
 @commands.register('show')
 def show_dir(args, config):
-    print(get_dir_name(config, args.day))
+    dir_name = get_dir_name(config, args.day)
+    if args.day == TODAY and not dir_name.exists():
+        dir_name.mkdir(parents=True)
+    print(dir_name)
 
 @commands.register('find')
 def find_in_dirs(args, config):
