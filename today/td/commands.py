@@ -57,11 +57,7 @@ def prune_dirs(args, config):
         contents = list(path.iterdir())
         if len(contents) > 1:
             continue
-        if len(contents) == 1 and contents[0].name == 'NOTES.md':
-            if not args.dry_run:
-                contents[0].unlink()
-            print(path)
-        else:
+        if len(contents) == 1 and contents[0].name != 'NOTES.md':
             continue
         print(path)
         if not args.dry_run:
