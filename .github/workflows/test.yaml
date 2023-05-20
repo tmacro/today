@@ -1,0 +1,28 @@
+name: Run Tests
+on:
+  - push
+
+jobs:
+  test:
+    name: Run Tests
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+
+      - name: Setup Go
+        uses: actions/setup-go@v4
+
+      - name: Run Tests
+        run: go test -v ./...
+
+      - name: Build Binaries
+        run: go build -o ./bin/ ./...
+
+      - name: Upload Binaries
+        uses: actions/upload-artifact@v3
+        if: success()
+        with:
+          name: binaries
+          path: ./bin
+          if-no-files-found: error
