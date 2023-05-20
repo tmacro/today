@@ -14,4 +14,8 @@ CURRENT_VERSION := `source ./VERSION && echo $VERSION_FULL`
 @clean:
 	rm -rf bin/{{ BINARY_NAME }}
 
-	# CGO_ENABLED=1 go build -ldflags "-s -w" -o ./bin/{{ name }} ./cmd/{{ name }}
+@release:
+	goreleaser release  --clean --skip-publish
+
+@snapshot:
+	goreleaser release  --clean --snapshot
