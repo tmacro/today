@@ -1,0 +1,78 @@
+# This is an example .goreleaser.yml file with some sensible defaults.
+# Make sure to check the documentation at https://goreleaser.com
+before:
+  hooks:
+    - go mod tidy
+    # - go generate ./...
+builds:
+  - id: today
+    main: ./cmd/today
+    binary: today
+    goos: [linux]
+    env:
+      - CGO_ENABLED=0
+    gcflags:
+      - -tags osusergo
+      - -trimpath
+    ldflags:
+      - -s -w
+      - -X main.version={{.Version}}
+      - -X main.commit={{.Commit}}
+      - -X main.date={{.Date}}
+
+  - id: td
+    main: ./cmd/td
+    binary: td
+    goos: [linux]
+    env:
+      - CGO_ENABLED=0
+
+  # - id: tn
+  #   binary: tn
+  #   main: ./cmd/tn
+  #   goos: [linux]
+  #   env:
+  #     - CGO_ENABLED=0
+
+archives:
+  - format: tar.gz
+    # this name template makes the OS and Arch compatible with the results of uname.
+    name_template: >-
+      {{ .ProjectName }}-
+      {{- .Version }}-
+      {{- if eq .Arch "386" }}i386
+      {{- else }}{{ .Arch }}{{ end }}
+      {{- if .Arm }}v{{ .Arm }}{{ end }}
+
+    files:
+      - LICENSE
+    rlcp: true
+
+  - id: binary
+    format: binary
+    name_template: >-
+      {{ .Binary }}-
+      {{- .Version }}-
+      {{- if eq .Arch "386" }}i386
+      {{- else }}{{ .Arch }}{{ end }}
+      {{- if .Arm }}v{{ .Arm }}{{ end }}
+    rlcp: true
+
+checksum:
+  name_template: 'checksums.txt'
+
+snapshot:
+  name_template: "{{ incpatch .Version }}"
+
+changelog:
+  sort: asc
+  filters:
+    exclude:
+      - '^docs:'
+      - '^test:'
+
+# The lines beneath this are called `modelines`. See `:help modeline`
+# Feel free to remove those if you don't want/use them.
+# yaml-language-server: $schema=https://goreleaser.com/static/schema.json
+# vim: set ts=2 sw=2 tw=0 fo=cnqoj
+# .goreleaser.yml
