@@ -37,12 +37,12 @@ var DefaultTodayConfig = TodayConfig{
 		Directory: "~/notes",
 		Editor:    "nano -Y markdown -f /usr/share/nano/markdown.nanorc",
 		Viewer:    "nano -Y markdown -f /usr/share/nano/markdown.nanorc --view",
-		Search:    "grep -i -n -H -T -r --color=always",
+		Search:    "grep -i -n -H -T -r --color=auto",
 	},
 	Scratch: ScratchConfig{
 		Directory: "~/scratch",
-		Viewer:    "ls -altr {{ .Directory }}",
-		Search:    "grep -i -n -H -T -r --color=always {{ .Expression }} {{ .Directory }}",
+		Viewer:    "ls -altr --color=auto {{ .Directory }}",
+		Search:    "grep -i -n -H -T -r --color=auto {{ .Expression }} {{ .Directory }}",
 		Find:      "find {{ .Directory }} -type f -iname \"*{{ .Expression }}*\"",
 	},
 }
