@@ -12,6 +12,22 @@ const (
 	DayFormat      = ".02"
 )
 
+func ParseHalfYear(date string) (time.Time, error) {
+	return time.Parse(HalfYearFormat, date)
+}
+
+func ParseFullYear(date string) (time.Time, error) {
+	return time.Parse(FullYearFormat, date)
+}
+
+func ParseMonthDay(date string) (time.Time, error) {
+	return time.Parse(MonthDayFormat, date)
+}
+
+func ParseDay(date string) (time.Time, error) {
+	return time.Parse(DayFormat, date)
+}
+
 func ParseDate(date string) (time.Time, error) {
 	t, err := ParseFormattedDate(date)
 	if err == nil {
